@@ -41,6 +41,30 @@ BUTTONS: tuple[BraviaTVButtonDescription, ...] = (
 )
 
 
+def create_button_descriptions_for_remote_command_list(
+    coordinator: BraviaTVCoordinator,
+) -> list[BraviaTVButtonDescription]:
+    """Creates a button description for each valid remote code."""
+
+    def make_press_action_fn(
+        command: str,
+    ) -> Callable[[BraviaTVCoordinator], Coroutine]:
+        async def press_action_fn(coordinator: BraviaTVCoordinator) -> None:
+            await coordinator.async_send_command([command], 1)
+
+        return press_action_fn
+
+    return [
+        BraviaTVButtonDescription(
+            key=command,
+            name=command,
+            entity_registry_enabled_default=False,
+            press_action=make_press_action_fn(command),
+        )
+        for command in coordinator.command_list
+    ]
+
+
 async def async_setup_entry(
     hass: HomeAssistant,
     config_entry: BraviaTVConfigEntry,
@@ -53,7 +77,9 @@ async def async_setup_entry(
     assert unique_id is not None
 
     async_add_entities(
-        BraviaTVButton(coordinator, unique_id, description) for description in BUTTONS
+        BraviaTVButton(coordinator, unique_id, description)
+        for description in list(BUTTONS)
+        + create_button_descriptions_for_remote_command_list(coordinator)
     )
 
 

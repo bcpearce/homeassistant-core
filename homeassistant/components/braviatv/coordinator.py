@@ -84,6 +84,7 @@ class BraviaTVCoordinator(DataUpdateCoordinator[None]):
         self.system_info: dict[str, str] = {}
         self.source: str | None = None
         self.source_list: list[str] = []
+        self.command_list: dict[str, str] = {}
         self.source_map: dict[str, dict] = {}
         self.media_title: str | None = None
         self.media_channel: str | None = None
@@ -153,6 +154,8 @@ class BraviaTVCoordinator(DataUpdateCoordinator[None]):
 
             if not self.system_info:
                 self.system_info = await self.client.get_system_info()
+            if not self.command_list:
+                self.command_list = await self.client.get_command_list()
 
             if self.is_on is False:
                 return
