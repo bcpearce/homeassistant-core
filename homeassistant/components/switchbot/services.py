@@ -77,6 +77,7 @@ def _async_get_switchbot_entry_for_device_id(
 def _is_supported_keypad(entry: SwitchbotConfigEntry) -> bool:
     """Return if the entry is a supported keypad model."""
     allowed_sensor_types = {
+        SupportedModels.KEYPAD.value,
         SupportedModels.KEYPAD_VISION.value,
         SupportedModels.KEYPAD_VISION_PRO.value,
     }
