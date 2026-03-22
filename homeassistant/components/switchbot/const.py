@@ -174,7 +174,7 @@ ENCRYPTED_SWITCHBOT_MODEL_TO_CLASS: dict[
     SwitchbotModel.GARAGE_DOOR_OPENER: switchbot.SwitchbotRelaySwitch,
     SwitchbotModel.SMART_THERMOSTAT_RADIATOR: switchbot.SwitchbotSmartThermostatRadiator,
     SwitchbotModel.ART_FRAME: switchbot.SwitchbotArtFrame,
-    SwitchbotModel.KEYPAD: switchbot.SwitchbotKeypad,
+    SwitchbotModel.KEYPAD: switchbot.SwitchbotKeypadVision,
     SwitchbotModel.KEYPAD_VISION: switchbot.SwitchbotKeypadVision,
     SwitchbotModel.KEYPAD_VISION_PRO: switchbot.SwitchbotKeypadVision,
 }
